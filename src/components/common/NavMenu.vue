@@ -19,6 +19,7 @@
         style="width: 300px;position:absolute;margin-top: 12px;right: 18%"
         v-model="keywords">
       </el-input>
+      <i class="el-icon-switch-button" v-on:click="logout" style="float:right; font-size: 40px; color: #222; padding: 10px"></i>
     </el-menu>
   </div>
 </template>
@@ -49,6 +50,17 @@
           return this.$route.path
         }
       }
+    },
+    methods: {
+      logout() {
+        let _this = this
+        this.$axios.get('/logout').then(res => {
+          if(res.data.code === 200) {
+            _this.$store.commit('logout')
+            _this.$router.replace('/login')
+          }
+        })
+      }
     }
   }
 </script>
@@ -60,6 +72,11 @@
 
   span {
     pointer-events: none;
+  }
+
+  .el-icon-switch-button{
+    cursor: pointer;
+    outline: 0;
   }
 
 </style>

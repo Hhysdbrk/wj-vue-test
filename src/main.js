@@ -8,7 +8,7 @@ import ElementUI from 'element-ui'
 import 'element-ui/lib/theme-chalk/index.css'
 
 // 设置反向代理，前端请求默认发送到 http://localhost:8443/api
-var axios = require('axios')
+let axios = require('axios');
 axios.defaults.baseURL = 'http://localhost:8443/api'
 
 // 全局注册，之后可在其他组件中通过this.$axios 发送数据
@@ -22,6 +22,8 @@ Vue.use(ElementUI)
 // 钩子函数
 router.beforeEach((to, from, next) => {
     if(to.meta.requireAuth) {
+      // console.log("store.state:")
+      // console.log(store.state)
       if(store.state.user.username) {
         next()
       }else {
